@@ -12,9 +12,6 @@ public class Organizer{
 
     Team team = new Team(teamName,coachName);
 
-
-
-
     OrganizerMachine machine = new OrganizerMachine(team);
 
     machine.run();

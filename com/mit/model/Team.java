@@ -19,6 +19,10 @@ public class Team{
     mPlayer = new ArrayList<Player>();
   }
 
+  public String getTeamName( ){
+    return mteamName;
+  }
+
   public void addPlayer(Player player){
     mPlayer.add(player);
   }
@@ -30,6 +34,13 @@ public class Team{
   public int getTeamPlayerCount(){
     return mPlayer.size();
   }
+
+  public void getPlayerName(){
+      for(Player player : mPlayer){
+          System.out.println(player.getPlayerName());
+      }
+  }
+
 
 
 //Addding player by team. This should be cache
