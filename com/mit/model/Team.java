@@ -31,13 +31,19 @@ public class Team{
     mPlayer.remove(player);
   }
 
+
   public int getTeamPlayerCount(){
     return mPlayer.size();
   }
 
-  public void getPlayerName(){
+  public void displayPlayer(){
       for(Player player : mPlayer){
-          System.out.println(player.getPlayerName());
+          System.out.printf(
+          "NAME:%s | TEAM: %s | HEIGHT: %d | EXPERIENCE: %s %n",
+          player.getPlayerName(),
+          player.getPlayerTeam(),
+          player.getPlayerHeight(),
+          player.getPlayerExperience());
       }
   }
 

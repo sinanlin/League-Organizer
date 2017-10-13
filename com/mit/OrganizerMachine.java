@@ -14,10 +14,14 @@ import java.util.TreeSet;
 
 public class OrganizerMachine{
 
-  private Map<String, String> mMenu;
-  private BufferedReader mReader;
   private Team mTeam;
+  private BufferedReader mReader;
   private List<Team> mTeams;
+
+  private Map<String, String> mMenu;
+
+
+
 
 
   public OrganizerMachine(Team team){
@@ -28,29 +32,13 @@ public class OrganizerMachine{
     mTeams = new ArrayList<Team>();
 
     mMenu.put("Create","Create a new Team");
-    mMenu.put("Quit","Exit the program");
-    mMenu.put("Add","Add player to a team");
+    mMenu.put("Add","Add player");
     mMenu.put("Remove","Remove player from the team");
-
-
-  }
-
-  private String promptAction() throws IOException{
-    //System.out.printf("There are %d teams.",  );
-    System.out.println("There are "+ mTeams.size()+" team avaliable");
-
-    for(Map.Entry<String, String> option : mMenu.entrySet()){
-      System.out.printf("%s - %s %n",
-                        option.getKey(),
-                        option.getValue());
-    }
-
-
-    System.out.print("What would you like to do: ");
-    String choice = mReader.readLine();
-    return choice.trim().toLowerCase();
+    mMenu.put("Display","Display all player");
+    mMenu.put("Quit","Exit the program");
 
   }
+
 
   public void run(){
     String choice = "";
@@ -61,34 +49,22 @@ public class OrganizerMachine{
         switch(choice){
           case "create":
           Team team = promtNewTeam();
-          //Fix the double entry;
           mTeams.add(team);
           break;
 
           case "add":
           Player player = promtNewPlayer();
-          String selectedTeam = player.getPlayerTeam();
-          System.out.printf("selectedTeam %s",selectedTeam);
-
-          for(Team t : mTeams ){
-            System.out.printf("t value %s",t.getTeamName());
-
-            if(t.eqauls(selectedTeam)){
-              t.addPlayer(player);
-              t.getPlayerName();
-            }
-            else{
-              System.out.println("Team not exist yet");
-            }
-
-          }
-
-
+          mTeam.addPlayer(player);
           break;
 
+
           case "remove":
-          Player playerToRemove = promtForPlayer();
+          Player playerToRemove =  promtNewPlayer();
           mTeam.removePlayer(playerToRemove);
+          break;
+
+          case "display":
+          mTeam.displayPlayer();
           break;
 
 
@@ -109,6 +85,23 @@ public class OrganizerMachine{
 
   }
 
+  private String promptAction() throws IOException{
+    //System.out.printf("There are %d teams.",  );
+    System.out.println("There are "+ mTeams.size()+" team avaliable");
+
+    for(Map.Entry<String, String> option : mMenu.entrySet()){
+      System.out.printf("%s - %s %n",
+                        option.getKey(),
+                        option.getValue());
+    }
+
+
+    System.out.print("What would you like to do: ");
+    String choice = mReader.readLine();
+    return choice.trim().toLowerCase();
+
+  }
+
   private Team promtNewTeam() throws IOException{
     System.out.print("Enter the team name: ");
     String teamName = mReader.readLine();
@@ -117,22 +110,6 @@ public class OrganizerMachine{
     return new Team(teamName, coachName);
   }
 
-/*
-  private Team promtForSelectTeam()throws IOException{
-    System.out.print("Which team do you want the player to be at? ");
-    String teamSelect = mReader.readLine();
-
-    for(Team team : mTeams){
-        if(team.getTeamName() == teamSelect){
-          return team;
-        }
-        else{
-          System.out.println("This team does not exist yet.");
-        }
-    }
-    return null;
-  }
-*/
 
   private Player promtNewPlayer() throws IOException{
     System.out.print("Enter the player name: ");
@@ -146,30 +123,6 @@ public class OrganizerMachine{
     String playerTeam = mReader.readLine();
     return new Player(playerName, playerExperience, playerHeight, playerTeam);
   }
-
-  //This promt should get the player's name and return a player in the list. Then
-  private Player promtForPlayer() throws IOException{
-    System.out.print("What's the name of the player that you want to remove?%n");
-    String playerName = mReader.readLine();
-
-    System.out.print("Which team is the player on?");
-    String playerTeamName = mReader.readLine();
-
-
-    for(Player player : mTeam.getPlayerByTeam(playerTeamName)){
-      if(player.getPlayerName() == playerName){
-        System.out.println("Successfully removed!");
-        return player;
-      }
-      else{
-        System.out.println("This player is not in the team");
-        return null;
-      }
-    }
-
-    return null;
-  }
-
 
 
 
