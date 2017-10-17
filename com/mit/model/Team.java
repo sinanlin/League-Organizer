@@ -5,22 +5,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Set;
+import java.util.TreeSet;
 
 public class Team{
 
   private String mteamName;
   private String mCoach;
-  private List<Player> mPlayer;
+  private Set<Player> mPlayer;
 
 
   public Team(String teamName, String coach){
     mteamName = teamName;
     mCoach = coach;
-    mPlayer = new ArrayList<Player>();
-  }
-
-  public String getTeamName( ){
-    return mteamName;
+    mPlayer = new TreeSet<Player>();
   }
 
   public void addPlayer(Player player){
@@ -31,6 +28,10 @@ public class Team{
     mPlayer.remove(player);
   }
 
+
+  public String getTeamName( ){
+    return mteamName;
+  }
 
   public int getTeamPlayerCount(){
     return mPlayer.size();
@@ -71,8 +72,4 @@ public class Team{
   public Set<String> getTeam(){
     return byTeam().keySet();
   }
-
-
-
-
 }

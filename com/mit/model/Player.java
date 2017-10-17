@@ -1,7 +1,7 @@
 package com.mit.model;
 
 
-public class Player{
+public class Player implements Comparable<Player>{
 
   private String mName;
   private String mExperience;
@@ -33,5 +33,14 @@ public String getPlayerTeam(){
   return mTeam;
 }
 
+@Override
+public int compareTo(Player p){
+    if(mName.equals(p.mName)){
+      return 0;
+    }else{
+      return 1;
+    }
+
+}
 
 }
