@@ -1,6 +1,7 @@
 package com.mit;
 import com.mit.model.Team;
 import com.mit.model.Player;
+
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -10,6 +11,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.Queue;
 
 
 public class OrganizerMachine{
@@ -18,10 +20,8 @@ public class OrganizerMachine{
   private BufferedReader mReader;
   private List<Team> mTeams;
 
+  private Queue<Team> mTeamQueue;
   private Map<String, String> mMenu;
-
-
-
 
 
   public OrganizerMachine(Team team){
@@ -35,6 +35,7 @@ public class OrganizerMachine{
     mMenu.put("Add","Add player");
     mMenu.put("Remove","Remove player from the team");
     mMenu.put("Display","Display all player");
+    mMenu.put("Choose","Choose a team");
     mMenu.put("Quit","Exit the program");
 
   }
@@ -65,6 +66,12 @@ public class OrganizerMachine{
 
           case "display":
           mTeam.displayPlayer();
+          break;
+
+          case "choose":
+          Team ChoosenTeam = promtTeam();
+          System.out.printf("The team you chose: %s %n", ChoosenTeam.getTeamName());
+
           break;
 
 
@@ -110,7 +117,6 @@ public class OrganizerMachine{
     return new Team(teamName, coachName);
   }
 
-
   private Player promtNewPlayer() throws IOException{
     System.out.print("Enter the player name: ");
     String playerName = mReader.readLine();
@@ -124,7 +130,29 @@ public class OrganizerMachine{
     return new Player(playerName, playerExperience, playerHeight, playerTeam);
   }
 
+  private Team promtTeam() throws IOException{
+    System.out.println("Avaliable Teams:");
+
+    int index = promtForIndex(mTeams);
+
+    return mTeams.get(index);
+
+  }
 
 
+  private int promtForIndex(List<Team> teams) throws IOException{
+    int counter = 1;
+
+    for(Team team : teams){
+      System.out.printf("%d.)  %s %n", counter, team.getTeamName());
+      counter++;
+    }
+
+    System.out.print("Your choice:  ");
+    String optionAsString = mReader.readLine();
+    int choice = Integer.parseInt(optionAsString.trim());
+    return choice - 1;
+
+  }
 
 }
