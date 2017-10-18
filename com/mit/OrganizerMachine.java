@@ -7,6 +7,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -36,6 +37,7 @@ public class OrganizerMachine{
     mMenu.put("Remove","Remove player from the team");
     mMenu.put("Display","Display all player");
     mMenu.put("Choose","Choose a team");
+    mMenu.put("Report","Display height report");
     mMenu.put("Quit","Exit the program");
 
   }
@@ -72,8 +74,15 @@ public class OrganizerMachine{
           Team ChoosenTeam = promtTeam();
           System.out.printf("The team you chose: %s %n", ChoosenTeam.getTeamName());
           Player ChoosenPlayer = promtPlayerByTeam(ChoosenTeam.getTeamName());
+          System.out.printf("The player you chose: %s %n", ChoosenPlayer.getPlayerName());
 
+          break;
 
+          case "report":
+          System.out.printf("Which team report you would like to see?%n");
+          Team HChoosenTeam = promtTeam();
+          System.out.printf("The team you chose: %s %n", HChoosenTeam.getTeamName());
+          displayHeightReport(HChoosenTeam.getTeamName());
           break;
 
 
@@ -182,6 +191,20 @@ public class OrganizerMachine{
     return choice - 1;
   }
 
+  private void displayHeightReport(String team){
 
+    List<Player> players = mTeam.getPlayerByTeam(team);
+    Map<Integer,String> hReport = new TreeMap<>();
+
+    for(Player player : players){
+      hReport.put(player.getPlayerHeight(),player.getPlayerName());
+    }
+
+    for(Map.Entry<Integer,String> entry: hReport.entrySet()){
+      System.out.printf("Height:%s, Name:%s  %n",
+                        entry.getKey(),
+                        entry.getValue());
+    }
+  }
 
 }
