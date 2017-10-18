@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.TreeMap;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -52,7 +53,7 @@ public class Team{
 
 //Addding player by team. This should be cache
   private Map<String, List<Player>> byTeam(){
-    Map<String,List<Player>> byTeam = new HashMap<>();
+    Map<String,List<Player>> byTeam = new TreeMap<>();
     for(Player player : mPlayer){
       List<Player> teamPlayer = byTeam.get(player.getPlayerTeam());
       if(teamPlayer == null){
@@ -65,11 +66,11 @@ public class Team{
   }
 
 
-  public List<Player> getPlayerByTeam(String team){
-    return byTeam().get(team);
-  }
-
   public Set<String> getTeam(){
     return byTeam().keySet();
+  }
+
+  public List<Player> getPlayerByTeam(String team){
+    return byTeam().get(team);
   }
 }

@@ -71,6 +71,8 @@ public class OrganizerMachine{
           case "choose":
           Team ChoosenTeam = promtTeam();
           System.out.printf("The team you chose: %s %n", ChoosenTeam.getTeamName());
+          Player ChoosenPlayer = promtPlayerByTeam(ChoosenTeam.getTeamName());
+
 
           break;
 
@@ -139,7 +141,6 @@ public class OrganizerMachine{
 
   }
 
-
   private int promtForIndex(List<Team> teams) throws IOException{
     int counter = 1;
 
@@ -154,5 +155,33 @@ public class OrganizerMachine{
     return choice - 1;
 
   }
+
+  private Player promtPlayerByTeam(String team) throws IOException{
+      List<Player> players = mTeam.getPlayerByTeam(team);
+
+      System.out.printf("Avaliable player in the team %s: %n", team);
+      int index = promtforPlayerIndex(players);
+      return players.get(index);
+  }
+
+
+  private int promtforPlayerIndex(List<Player> players) throws IOException{
+    int counter =1;
+
+    for(Player player : players ){
+      System.out.printf("%d.)  Name:%s| Height:%s| Experience: %s %n",
+                        counter,
+                        player.getPlayerName(),
+                        player.getPlayerHeight(),
+                        player.getPlayerExperience());
+      counter++;
+    }
+    System.out.print("Your choice: ");
+    String optionAsString = mReader.readLine();
+    int choice = Integer.parseInt(optionAsString.trim());
+    return choice - 1;
+  }
+
+
 
 }
