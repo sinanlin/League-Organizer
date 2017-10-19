@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.Queue;
-
+import java.io.*;
 
 public class OrganizerMachine{
 
@@ -21,7 +21,6 @@ public class OrganizerMachine{
   private BufferedReader mReader;
   private List<Team> mTeams;
 
-  private Queue<Team> mTeamQueue;
   private Map<String, String> mMenu;
 
 
@@ -35,7 +34,7 @@ public class OrganizerMachine{
     mMenu.put("Create","Create a new Team");
     mMenu.put("Add","Add player");
     mMenu.put("Remove","Remove player from the team");
-    mMenu.put("Display","Display all player");
+    mMenu.put("Banlance","Display league Balance Report");
     mMenu.put("Choose","Choose a team");
     mMenu.put("Report","Display height report");
     mMenu.put("Quit","Exit the program");
@@ -66,7 +65,7 @@ public class OrganizerMachine{
           mTeam.removePlayer(playerToRemove);
           break;
 
-          case "display":
+          case "banlance":
           mTeam.displayPlayer();
           break;
 
@@ -173,7 +172,6 @@ public class OrganizerMachine{
       return players.get(index);
   }
 
-
   private int promtforPlayerIndex(List<Player> players) throws IOException{
     int counter =1;
 
@@ -206,5 +204,7 @@ public class OrganizerMachine{
                         entry.getValue());
     }
   }
+
+
 
 }
